@@ -1,0 +1,466 @@
+* {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+   .pageB {
+         position: fixed;
+      margin-left: 30px;
+         margin-top: 100px;
+      width: 300px;
+            padding: 30px;
+            border: 3px solid rgba(255, 255, 255, 0.5); /* حدود شفافة خفيفة */
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.2); /* شفافية عشان يبان البلور */
+            backdrop-filter: blur(12px); /* تأثير البلور على الخلفية اللي ورا */
+            -webkit-backdrop-filter: blur(12px); /* للدعم مع سفاري */
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            color: white; /* النصوص صارت بيضاء عشان تبان على الخلفية الداكنة */
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        
+         
+         
+   }
+.pageB5 {
+         position: fixed;
+      margin-left: 30px;
+         margin-top: 500px;
+      width: 00px;
+            padding: 30px;
+            border: 3px solid rgba(255, 255, 255, 0.5); /* حدود شفافة خفيفة */
+            border-radius: 20px;
+            background-image:url("1.jpg");
+            backdrop-filter: blur(12px); /* تأثير البلور على الخلفية اللي ورا */
+            -webkit-backdrop-filter: blur(9px); /* للدعم مع سفاري */
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            color: white; /* النصوص صارت بيضاء عشان تبان على الخلفية الداكنة */
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        
+         
+         
+   }
+   .page1{
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      
+      font-family: 'Arial', sans-serif;
+      overflow-x: hidden;
+      position: relative;
+    
+  background-image: url( "8.jpg" );
+    background-repeat : no-repeat ;
+    background-attachment : fixed ;
+    background-position :center;
+    background-size :cover;
+  }
+.page2 {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      
+      font-family: 'Arial', sans-serif;
+      overflow-x: hidden;
+      position: relative;
+    
+  background-image: url( "10.jpg" );
+    background-repeat : no-repeat ;
+    background-attachment : fixed ;
+    background-position :center;
+    background-size :cover;
+  }
+    .page3 {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      
+      font-family: 'Arial', sans-serif;
+      overflow-x: hidden;
+      position: relative;
+    
+  background-image: url( "4.jpg" );
+    background-repeat : no-repeat ;
+    background-attachment : fixed ;
+    background-position :center;
+    background-size :cover;
+  }
+
+    /* تأثير القطرات من القمر */
+    .moon-drops {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 10000;
+    }
+
+    .drop {
+      position: absolute;
+      width: 3px;
+      height: 30px;
+      background: linear-gradient(transparent, rgba(255, 255, 255, 0.8));
+      border-radius: 50%;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-100px) scaleY(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) scaleY(1.5);
+        opacity: 0;
+      }
+    }
+
+    /* القمر في المنتصف */
+    .moon-container {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .moon-container:hover {
+      transform: translate(-50%, -50%) scale(1.1);
+    }
+
+    .moon {
+      width: 150px;
+      height: 150px;
+      background: radial-gradient(circle at 30% 30%, #fff9e6, #f1c40f);
+      border-radius: 50%;
+      box-shadow: 0 0 50px #f1c40f, 0 0 100px rgba(241, 196, 15, 0.5);
+      position: relative;
+      animation: moonGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes moonGlow {
+      0%, 100% { box-shadow: 0 0 50px #f1c40f, 0 0 100px rgba(241, 196, 15, 0.3); }
+      50% { box-shadow: 0 0 80px #f1c40f, 0 0 150px rgba(241, 196, 15, 0.7); }
+    }
+
+    /* النجوم المحيطة بالقمر */
+    .stars-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .star-btn {
+      position: absolute;
+      width: 50px;
+      height: 30px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      pointer-events: auto;
+      transition: all 0.3s ease;
+      animation: twinkle 2s ease-in-out infinite;
+    }
+
+    .star-btn:hover {
+      transform: scale(1.2) rotate(15deg);
+      filter: drop-shadow(0 0 15px gold);
+    }
+
+    .star-svg {
+      width: 90%;
+      height: 90%;
+      filter: drop-shadow(0 0 5px currentColor);
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.8; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.1); }
+    }
+
+    /* النوافذ المنبثقة */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      padding: 30px;
+      z-index: 2000;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      max-width: 400px;
+      width: 90%;
+      animation: popIn 0.5s ease;
+    }
+
+    @keyframes popIn {
+      0% { transform: translate(-50%, -50%) scale(0); }
+      100% { transform: translate(-50%, -50%) scale(1); }
+    }
+
+    .popup.active {
+      display: block;
+    }
+
+    .popup-content {
+      text-align: center;
+    }
+
+    .popup h2 {
+      color: #333;
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+
+    .star-message {
+      background: #f0f0f0;
+      padding: 20px;
+      border-radius: 10px;
+      margin: 20px 0;
+      font-size: 18px;
+      color: #333;
+      border: 2px solid #ddd;
+      min-height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      direction: rtl;
+    }
+
+    .heart-container {
+      position: relative;
+      width: 100px;
+      height: 100px;
+      margin: 20px auto;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .heart-container:hover {
+      transform: scale(1.1);
+    }
+
+    .heart {
+      width: 100px;
+      height: 100px;
+      background: #ff4136;
+      position: relative;
+      transform: rotate(45deg);
+      animation: heartbeat 1s ease-in-out infinite;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: inherit;
+    }
+
+    .heart::before {
+      left: -50px;
+      top: 0;
+    }
+
+    .heart::after {
+      left: 0;
+      top: -50px;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: rotate(45deg) scale(1); }
+      25% { transform: rotate(45deg) scale(1.1); }
+      50% { transform: rotate(45deg) scale(1.2); }
+      75% { transform: rotate(45deg) scale(1.1); }
+    }
+
+    .heart-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 14px;
+      z-index: 10;
+      text-align: center;
+      width: 50px;
+      line-height: 1.3;
+    }
+
+    .close-btn {
+      background: #333;
+      color: white;
+      border: none;
+      padding: 10px 25px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 20px;
+      transition: background 0.3s ease;
+    }
+
+    .close-btn:hover {
+      background: #555;
+    }
+
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1999;
+      backdrop-filter: blur(5px);
+    }
+
+    .overlay.active {
+      display: block;
+    }
+
+    /* رسالة التأثير */
+    .impact-message {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.9);
+      padding: 15px 30px;
+      border-radius: 50px;
+      color: #333;
+      font-size: 18px;
+      z-index: 3000;
+      animation: slideDown 0.5s ease;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+      direction: rtl;
+    }
+
+    @keyframes slideDown {
+      0% { transform: translateX(-50%) translateY(-100px); }
+      100% { transform: translateX(-50%) translateY(0); }
+    }
+  .page_bt {
+    
+      padding: 10px 20px;
+      background: linear-gradient(#133e63, #3238a8); 
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 500px;
+    margin-left: 90px;
+    
+  }
+ .error-message {
+      color: red;
+      font-size: 14px;
+      margin-top: 10px;
+      display: none;
+    }
+    button {
+     border: 3px solid rgba(255, 255, 255, 0.5); /* حدود شفافة خفيفة */
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.2); /* شفافية عشان يبان البلور */
+            backdrop-filter: blur(12px); /* تأثير البلور على الخلفية اللي ورا */
+            -webkit-backdrop-filter: blur(12px); /* للدعم مع سفاري */
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            color: white; /* النصوص صارت بيضاء عشان تبان على الخلفية الداكنة */
+            border: 2px solid rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 15px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    hr {
+      margin: 15px 0;
+    }
+.error-message {
+    position: fixed;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0 5px 20px rgba(245, 87, 108, 0.4);
+    z-index: 1000;
+    text-align: center;
+    min-width: 300px;
+    direction: rtl;
+    animation: slideDown 0.5s ease forwards;
+}
+
+@keyframes slideDown {
+    0% {
+        top: -100px;
+        opacity: 0;
+    }
+    100% {
+        top: 20px;
+        opacity: 1;
+    }
+}
+
+/* تنسيق رسالة الخطأ عند الاختفاء */
+.error-message.hide {
+    animation: slideUp 0.5s ease forwards;
+}
+
+@keyframes slideUp {
+    0% {
+        top: 20px;
+        opacity: 1;
+    }
+    100% {
+        top: -100px;
+        opacity: 0;
+    }
+}
+
+/* تنسيق متجاوب للشاشات الصغيرة */
+@media (max-width: 480px) {
+    .pageB {
+        padding: 20px;
+    }
+    
+    .error-message {
+        min-width: 250px;
+        font-size: 14px;
+        padding: 12px 20px;
+    }
+}
+.page5 {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      
+      font-family: 'Arial', sans-serif;
+      overflow-x: hidden;
+      position: relative;
+      background-image: url("6.jpg");
+      background-repeat : no-repeat ;
+    background-attachment : fixed ;
+    background-position :center;
+    background-size :cover;
+}

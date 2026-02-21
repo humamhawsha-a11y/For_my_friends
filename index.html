@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Best Friends</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="page1">
+    <div class="pageB">
+        <h5>اختار/ي اسلوب مناداتك</h5>
+        <hr>
+        
+        <div class="Sex-selection" id="page1">
+            <form id="genderForm">
+                <input type="radio" id="male" name="gender" value="male" required> بنت
+                <input type="radio" id="female" name="gender" value="female" required> شاب
+                <br>
+            </form>
+        </div>
+        <hr>
+        <br>
+        
+        <h5>ضع تاريخ ولادتك</h5>
+        <hr>
+        <br>
+        
+        <form id="dateForm">
+            <input type="date" id="date" name="date" required>
+            <br>
+        </form>
+        <hr>
+        
+        <div class="button" id="P1B">
+            <button type="button" class="pagebutton" name="start_journey" onclick="validateAndRedirect()">ابدأ رحلتك</button>
+        </div>
+    </div>
+    
+    <div id="errorMessage" class="error-message"></div>
+
+    <script>
+        function showImpactMessage(text) {
+            const message = document.getElementById('errorMessage');
+            message.textContent = text;
+            message.classList.remove('hide'); // إزالة كلاس الاختفاء إذا كان موجوداً
+            
+            // إظهار الرسالة مع الأنيميشن
+            message.style.display = 'block';
+            
+            // إخفاء الرسالة بعد ثانيتين
+            setTimeout(() => {
+                message.classList.add('hide'); // إضافة كلاس الاختفاء للأنيميشن
+                
+                // إزالة الرسالة بعد انتهاء الأنيميشن
+                setTimeout(() => {
+                    message.style.display = 'none';
+                    message.classList.remove('hide');
+                }, 500); // 500ms مدة أنيميشن الاختفاء
+            }, 2000);
+        }
+
+        function validateAndRedirect() {
+            // التحقق من اختيار الجنس
+            const genderSelected = document.querySelector('input[name="gender"]:checked');
+            
+            // التحقق من إدخال التاريخ
+            const birthDate = document.getElementById('date').value;
+            
+            if (!genderSelected && !birthDate) {
+                showImpactMessage('الرجاء اختيار الجنس وإدخال تاريخ الميلاد');
+            } 
+            else if (!genderSelected) {
+                showImpactMessage('الرجاء اختيار الجنس');
+            } 
+            else if (!birthDate) {
+                showImpactMessage('الرجاء إدخال تاريخ الميلاد');
+            } 
+            else {
+                // تخزين البيانات
+                sessionStorage.setItem('userGender', genderSelected.value);
+                sessionStorage.setItem('userBirthDate', birthDate);
+                
+                // التوجيه بناءً على الجنس
+                if (genderSelected.value === 'male') {
+                    window.location.href = 'page2.html';
+                } else {
+                    window.location.href = 'page4.html';
+                }
+            }
+        }
+    </script>
+</body>
+</html>

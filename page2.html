@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>For My Best Friends</title>
+</head>
+<body class="page3">
+  <div class="pageB">
+  <h3 style="color : white ;"> في <span id="displayDate"></span> ولد صديق لا تعوّض به الدُّنيا ... </h3>
+  
+  <a href="page3.html">
+    <button class="page-button">اسلتم هديّتي لك </button>
+  </a>
+</div>
+  <script>
+    // استرجاع التاريخ من sessionStorage عند تحميل الصفحة
+    const birthDate = sessionStorage.getItem('userBirthDate');
+    
+    if (birthDate) {
+      // تنسيق التاريخ للعرض (اختياري)
+      const formattedDate = new Date(birthDate).toLocaleDateString('ar-EG');
+      document.getElementById('displayDate').textContent = formattedDate;
+    } else {
+      document.getElementById('displayDate').textContent = '*تاريخ لم تدخله*';
+    }
+    
+    // يمكنك أيضاً استرجاع الجنس إذا أردت
+    // const gender = sessionStorage.getItem('userGender');
+  </script>
+  
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>النجوم والقمر</title>
+ <link rel="stylesheet" href="style.css">
+    
+</head>
+<body class="page2">
+  <!-- القطرات من القمر -->
+  <div class="moon-drops" id="moonDrops"></div>
+
+  <!-- القمر في المنتصف (بدون وجه) -->
+  <div class="moon-container" onclick="showMoonMessage()">
+    <div class="moon"></div>
+  </div>
+
+  <!-- النجوم المحيطة -->
+  <div class="stars-container" id="starsContainer"></div>
+
+  <!-- النوافذ المنبثقة -->
+  <div class="overlay" id="overlay"></div>
+  
+  <div class="popup" id="popup">
+    <div class="popup-content">
+      <h2 id="popupTitle">نجمة ✨</h2>
+      <div class="star-message" id="starMessage"></div>
+      
+      <div class="heart-container" id="heartContainer" onclick="makeHeartBeat()">
+        <div class="heart" id="heart"></div>
+        <div class="heart-text" id="heartText"></div>
+      </div>
+      
+      <button class="close-btn" onclick="closePopup()">إغلاق</button>
+    </div>
+  </div>
+  <a href="page5.html">
+  <button class="page_bt" id="page2" >انتقل للصفحة التالية :</button>
+  </a>
+
+  <script>
+    // مصفوفة الرسائل الخاصة بكل نجمة
+    const starMessages = [
+      "⭐ النجمة الأولى: أنتم الحلى كلّو",
+      "⭐ النجمة الثانية: أصدقاء العمر",
+      "⭐ النجمة الثالثة: ذكرى جميلة بعمر قاسِ",
+      "⭐ النجمة الرابعة: جمعتنا حب وإخلاص",
+      "⭐ النجمة الخامسة: فرحتنا اللقاء بيننا",
+      "⭐ النجمة السادسة: وجودكم معي أمل وتفاؤل",
+      "⭐ النجمة السابعة: أحلى دفعة ",
+      "⭐ النجمة الثامنة: انتو سر السعادة ",
+      "⭐ النجمة التاسعة: حلم جميل لكل شخص بدو أصدقاء",
+      "⭐ النجمة العاشرة: بترسموا ابتسامة لا تنسى ",
+      "⭐ النجمة الحادية عشر: دفء المشاعر بيننا أحسن من اقوى صوبيا :)",
+      "⭐ النجمة الثانية عشر: انتو نبض القلب",
+      "⭐ النجمة الثالثة عشر: أصواتكم كصوت المطر",
+      "⭐ النجمة الرابعة عشر: جمالكم كغروب الشمس",
+      "⭐ النجمة الخامسة عشر: وطلّتكم شروق الأمل",
+      "⭐ النجمة السادسة عشر: محادثاتنا كهمسات الليل",
+      "⭐ النجمة السابعة عشر: عشنا أحلى الذكريات",
+      "⭐ النجمة الثامنة عشر: ربي يخليلي اياكم ",
+      "⭐ النجمة التاسعة عشر: ما بقى أعرف عبّر (:",
+      "⭐ النجمة العشرون: انتو وردة الحياة",
+      "⭐ النجمة الحادية والعشرون: وجودكم نبض الوجود",
+      "⭐ النجمة الثانية والعشرون: أنتم زينة حياتي",
+  ];
+
+    // دالة إنشاء النجوم المحيطة بالقمر
+    function createStarsAroundMoon() {
+      const starsContainer = document.getElementById('starsContainer');
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
+      const radius = Math.min(window.innerWidth, window.innerHeight) * 0.35; // النجوم على بعد 35% من حجم الشاشة
+      const numberOfStars = 22; // 22 نجمة
+
+      // ألوان عشوائية للقلوب
+      const colors = ['#ff4136', '#ff851b', '#ffdc00', '#2ecc40', '#0074d9', '#b10dc9', '#f012be', '#01ff70', '#ff6b6b', '#4ecdc4', '#f39c12', '#8e44ad', '#3498db', '#e67e22', '#1abc9c', '#e74c3c', '#9b59b6', '#34495e', '#16a085', '#27ae60', '#d35400', '#c0392b'];
+
+      for (let i = 0; i < numberOfStars; i++) {
+        const angle = (i / numberOfStars) * Math.PI * 2;
+        const x = centerX + Math.cos(angle) * radius;
+        const y = centerY + Math.sin(angle) * radius;
+
+        const starBtn = document.createElement('button');
+        starBtn.className = 'star-btn';
+        starBtn.style.left = `${x - 30}px`; // نصف عرض الزر
+        starBtn.style.top = `${y - 30}px`;
+        starBtn.setAttribute('onclick', `openStarPopup(${i})`);
+        
+        // لون عشوائي للنجمة
+        const randomColor = colors[i % colors.length];
+        starBtn.style.color = randomColor;
+        
+        // SVG النجمة
+        starBtn.innerHTML = `
+          <svg class="star-svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+        `;
+
+        starsContainer.appendChild(starBtn);
+      }
+    }
+
+    // دالة إنشاء قطرات القمر
+    function createMoonDrops() {
+      const dropsContainer = document.getElementById('moonDrops');
+      const numberOfDrops = 70; // زيادة عدد القطرات
+
+      for (let i = 0; i < numberOfDrops; i++) {
+        const drop = document.createElement('div');
+        drop.className = 'drop';
+        drop.style.left = `${Math.random() * 100}%`;
+        drop.style.animationDuration = `${Math.random() * 3 + 2}s`;
+        drop.style.animationDelay = `${Math.random() * 5}s`;
+        drop.style.opacity = Math.random() * 0.5 + 0.3;
+        dropsContainer.appendChild(drop);
+      }
+    }
+
+    // متغيرات النافذة المنبثقة
+    let currentStarIndex = 0;
+
+    // فتح نافذة النجمة
+    function openStarPopup(index) {
+      currentStarIndex = index;
+      const popup = document.getElementById('popup');
+      const overlay = document.getElementById('overlay');
+      const popupTitle = document.getElementById('popupTitle');
+      const starMessage = document.getElementById('starMessage');
+      
+      popupTitle.textContent = `نجمة ✨ ${index + 1}`;
+      starMessage.textContent = starMessages[index];
+      
+      // لون عشوائي للقلب
+      const colors = ['#ff4136', '#ff851b', '#ffdc00', '#2ecc40', '#0074d9', '#b10dc9', '#f012be', '#01ff70', '#ff6b6b', '#4ecdc4'];
+      const randomColor = colors[Math.floor(Math.random() * colors.length)];
+      
+      const heart = document.getElementById('heart');
+      heart.style.background = randomColor;
+      
+      // تأثير عند الفتح
+      popup.classList.add('active');
+      overlay.classList.add('active');
+      
+      // رسالة تأثير على الصفحة
+      showImpactMessage(`✨ تم فتح النجمة ${index + 1}`);
+    }
+
+    // إغلاق النافذة
+    function closePopup() {
+      const popup = document.getElementById('popup');
+      const overlay = document.getElementById('overlay');
+      
+      popup.classList.remove('active');
+      overlay.classList.remove('active');
+    }
+
+    // جعل القلب ينبض
+    function makeHeartBeat() {
+      const heart = document.getElementById('heart');
+      const heartText = document.getElementById('heartText');
+      
+      
+      
+      // تغيير لون القلب بشكل عشوائي
+      const colors = ['#ff4136', '#ff851b', '#ffdc00', '#2ecc40', '#0074d9', '#b10dc9', '#f012be', '#01ff70', '#ff6b6b', '#4ecdc4'];
+      const newColor = colors[Math.floor(Math.random() * colors.length)];
+      heart.style.background = newColor;
+      
+      // تأثير إضافي
+      heart.style.transform = 'rotate(45deg) scale(1.3)';
+      setTimeout(() => {
+        heart.style.transform = 'rotate(45deg) scale(1)';
+      }, 200);
+      
+      // رسالة تأثير
+      showImpactMessage('💓 القلب ينبض بالحب');
+    }
+
+    // رسالة من القمر
+    function showMoonMessage() {
+      showImpactMessage('هدية من صاحبكم همام  :');
+      
+      // تأثير إضافي: تغيير لون بعض القطرات
+      const drops = document.getElementsByClassName('drop');
+      for (let drop of drops) {
+        drop.style.background = `linear-gradient(transparent, ${getRandomColor()})`;
+      }
+    }
+
+    // دالة للحصول على لون عشوائي
+    function getRandomColor() {
+      const colors = ['rgba(255, 65, 54, 0.8)', 'rgba(255, 133, 27, 0.8)', 'rgba(255, 220, 0, 0.8)', 'rgba(46, 204, 64, 0.8)', 'rgba(0, 116, 217, 0.8)'];
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
+
+    // إظهار رسالة تأثير
+    function showImpactMessage(text) {
+      const message = document.createElement('div');
+      message.className = 'impact-message';
+      message.textContent = text;
+      document.body.appendChild(message);
+      
+      setTimeout(() => {
+        message.remove();
+      }, 2000);
+    }
+
+    // تحديث مواقع النجوم عند تغيير حجم النافذة
+    function updateStarsPosition() {
+      const starsContainer = document.getElementById('starsContainer');
+      starsContainer.innerHTML = ''; // مسح النجوم الحالية
+      createStarsAroundMoon();
+    }
+
+    // تهيئة الصفحة
+    window.onload = function() {
+      createStarsAroundMoon();
+      createMoonDrops();
+    };
+
+    window.onresize = function() {
+      updateStarsPosition();
+    };
+
+    // إغلاق النافذة عند الضغط على overlay
+    document.getElementById('overlay').onclick = closePopup;
+  </script>
+</body>
+</html>
